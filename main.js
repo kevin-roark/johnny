@@ -287,7 +287,7 @@
         document.body.appendChild(img);
 
         setTimeout(function() {
-          img.style.opacity = 1;
+          img.style.opacity = 0.67 + Math.random() * 0.33;
         }, 20);
       }, delay);
     }
