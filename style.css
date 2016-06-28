@@ -18,3 +18,9 @@ html, body {
   box-shadow: 3px 3px 10px 5px rgba(0, 0, 0, 0.4);
   z-index: 1;
 }
+
+.fatherhood-image {
+  position: absolute;
+  transition: opacity ease 0.4s;
+  opacity: 0;
+}

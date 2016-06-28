@@ -16,7 +16,8 @@
   setTimeout(randomInvert, 25666);
   setTimeout(phrases, 4666);
   setTimeout(rainGifs, 15666);
-  setTimeout(setupCenteredVideo, 1000); //9666);
+  setTimeout(setupCenteredVideo, 9666);
+  setTimeout(setupFatherhoodBorder, 12666);
 
   function drawJohnnyDads () {
     var size = [160, 286];
@@ -224,7 +225,8 @@
       'media/johnny_5.mp4',
       'media/johnny_6.mp4',
       'media/johnny_7.mp4',
-      'media/johnny_8.mp4'
+      'media/johnny_8.mp4',
+      'media/johnny_9.mp4'
     ];
 
     var video = document.createElement('video');
@@ -245,6 +247,49 @@
       video.src = arr[Math.floor(arr.length * Math.random())];
       video.currentTime = 0;
       video.play();
+    }
+  }
+
+  function setupFatherhoodBorder () {
+    var size = {w: 128, h: 96};
+    var arr = [
+      'media/fatherhood_1.jpg',
+      'media/fatherhood_2.jpg',
+      'media/fatherhood_3.jpg',
+      'media/fatherhood_4.jpg',
+      'media/fatherhood_5.jpg',
+      'media/fatherhood_6.jpg',
+      'media/fatherhood_7.jpg',
+      'media/fatherhood_8.jpg'
+    ];
+
+    for (var x = 0; x < window.innerWidth; x += size.w * 0.33 + Math.random() * size.w * 0.67) {
+      var yVals = [0, window.innerHeight - size.h];
+      for (var y = 0; y < yVals.length; y++) {
+        addBorderImage(x, yVals[y], (x / window.innerWidth) * 8666);
+      }
+    }
+
+    for (var y = 0; y < window.innerHeight; y += size.h * 0.33 + Math.random() * size.h * 0.67) {
+      var xVals = [0, window.innerWidth - size.w];
+      for (var x = 0; x < xVals.length; x++) {
+        addBorderImage(xVals[x], y, (y / window.innerHeight) * 8666);
+      }
+    }
+
+    function addBorderImage (x, y, delay) {
+      setTimeout(function() {
+        var img = new Image();
+        img.src = arr[Math.floor(Math.random() * arr.length)];
+        img.className = 'fatherhood-image';
+        img.style.left = x + 'px';
+        img.style.top = y + 'px';
+        document.body.appendChild(img);
+
+        setTimeout(function() {
+          img.style.opacity = 1;
+        }, 20);
+      }, delay);
     }
   }
 
