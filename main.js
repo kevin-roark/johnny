@@ -13,6 +13,9 @@
   };
   johnnyDadImg.src = 'media/johnny_dad.jpg';
 
+  setTimeout(randomInvert, 18000);
+  setTimeout(phrases, 7666);
+
   function drawJohnnyDads () {
     var size = [160, 286];
     var topLeft = [0, 0];
@@ -59,12 +62,19 @@
     }, 14000);
 
     setTimeout(function() {
-      line({ size: [size[0] * 2, size[1]], dx: function() { return 25; }, dy: function() { return 0; }, freq: 50, freqDecay: function(f) { return f; } });
+      line({ size: [size[0] * 2, size[1]], dx: function() { return 120; }, dy: function() { return 0; }, freq: 50, freqDecay: function(f) { return f; } });
 
-      setTimeout(function() {
-        line({ pos: [0, 250], size: [size[0] * 2.5, size[1] * 2.5], dx: function() { return 15; }, dy: function() { return 0; }, freq: 50, freqDecay: function(f) { return f; } });
-      }, 500);
-    }, 25000);
+      for (var i = 0; i < 8; i++) {
+        bigLine(i, 500 + i * 1500);
+      }
+      function bigLine (i, delay) {
+        setTimeout(function() {
+          line({ pos: [0, 20 + 80 * i], size: [size[0], size[1] * 5], dx: function() { return 75; }, dy: function() { return 0; }, freq: 50, freqDecay: function(f) { return f; } });
+        }, delay);
+      }
+    }, 27500);
+
+    setTimeout(drawJohnnyDads, 40 * 1000);
 
     function line (options) {
       var dx = options.dx || function() { return Math.random() * 1; }
@@ -111,8 +121,54 @@
     }
   }
 
+  function randomInvert () {
+    var isInverted = false;
+    update();
+
+    function update () {
+      var t = isInverted ? 0.4 : 0.25;
+      if (Math.random() < t) {
+        isInverted = !isInverted;
+        var amt = isInverted ? Math.random() * 0.35 + 0.65 : 0;
+        setInvertFilter(canvas, 100 * amt);
+      }
+
+      setTimeout(update, 200);
+    }
+  }
+
+  function phrases () {
+    var arr = [
+      'I HOPE JOHNNY GOES TO JAIL',
+      'I HOPE MY SON GOES TO JAIL',
+      'I HOPE JOHNNY GOES TO JAIL',
+      'I HOPE MY SON GOES TO JAIL',
+      'I HOPE MY DAD GOES TO JAIL',
+      'GO TO JAIL',
+      'DADDY GO TO JAIL'
+    ];
+
+    addPhrase();
+
+    function addPhrase () {
+      var p = arr[Math.floor(arr.length * Math.random())];
+      ctx.font = Math.floor(Math.random() * 64 + 16) + "px sans-serif";
+      ctx.fillText(p, Math.random() * canvas.width - 200, Math.random() * canvas.height - 80);
+
+      setTimeout(addPhrase, Math.random() * 200);
+    }
+  }
+
   function resize () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerWidth;
+  }
+
+  function setInvertFilter(el, amt) {
+    var filter = el.style.filter || '';
+    filter.replace(/invert\(*\)/, '');
+    filter += ' invert(' + amt + '%)';
+    el.style.filter = el.style.webkitFilter = el.style.mozFilter = filter;
+    console.log(filter);
   }
 })();
