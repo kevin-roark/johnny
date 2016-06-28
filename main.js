@@ -3,7 +3,7 @@
   document.body.appendChild(canvas);
 
   resize();
-  window.onresize = resize;
+  //window.onresize = resize;
 
   var ctx = canvas.getContext('2d');
 
@@ -13,8 +13,10 @@
   };
   johnnyDadImg.src = 'media/johnny_dad.jpg';
 
-  setTimeout(randomInvert, 18000);
-  setTimeout(phrases, 7666);
+  setTimeout(randomInvert, 25666);
+  setTimeout(phrases, 4666);
+  setTimeout(rainGifs, 15666);
+  setTimeout(setupCenteredVideo, 1000); //9666);
 
   function drawJohnnyDads () {
     var size = [160, 286];
@@ -159,6 +161,93 @@
     }
   }
 
+  function rainGifs () {
+    var arr = [
+      'media/football_1.gif',
+      'media/football_2.gif-c200',
+      'media/football_3.gif-c200',
+      'media/football_4.gif',
+      'media/football_5.gif',
+      'media/football_6.gif',
+      'media/football_7.gif',
+      'media/football_8.gif',
+      'media/johnny_1.gif',
+      'media/johnny_2.gif',
+      'media/johnny_3.gif',
+      'media/johnny_4.gif'
+    ];
+    var gifs = [];
+
+    addgif();
+    animate();
+
+    function addgif () {
+      var gif = new Image();
+      gif.className = 'rain-gif';
+      gif.src = arr[Math.floor(arr.length * Math.random())];
+      gif._y = -100;
+      gif._speed = Math.random() * 7 + 1;
+      gif.style.top = '-100px';
+      gif.style.left = (Math.random() * window.innerWidth - 50) + 'px';
+
+      document.body.appendChild(gif);
+      gifs.push(gif);
+      setTimeout(addgif, Math.random() * 1450 + 50);
+    }
+
+    function animate () {
+      var cleanGifs = [];
+      for (var i = 0; i < gifs.length; i++) {
+        var gif = gifs[i];
+        gif._y += gif._speed;
+
+        if (gif._y < window.innerHeight) {
+          gif.style.top = gif._y + 'px';
+          cleanGifs.push(gif);
+        } else {
+          document.body.removeChild(gif);
+        }
+      }
+
+      gifs = cleanGifs;
+
+      setTimeout(animate, 16);
+    }
+  }
+
+  function setupCenteredVideo () {
+    var arr = [
+      'media/johnny_1.mp4',
+      'media/johnny_2.mp4',
+      'media/johnny_3.mp4',
+      'media/johnny_4.mp4',
+      'media/johnny_5.mp4',
+      'media/johnny_6.mp4',
+      'media/johnny_7.mp4',
+      'media/johnny_8.mp4'
+    ];
+
+    var video = document.createElement('video');
+    video.className = 'centered-video';
+    video.src = arr[0];
+    video.play();
+    document.body.appendChild(video);
+
+    video.onended = function () {
+      resetVideo();
+    };
+
+    document.addEventListener('click', resetVideo, false);
+    document.addEventListener('keypress', resetVideo, false);
+
+    function resetVideo () {
+      video.pause();
+      video.src = arr[Math.floor(arr.length * Math.random())];
+      video.currentTime = 0;
+      video.play();
+    }
+  }
+
   function resize () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerWidth;
@@ -169,6 +258,5 @@
     filter.replace(/invert\(*\)/, '');
     filter += ' invert(' + amt + '%)';
     el.style.filter = el.style.webkitFilter = el.style.mozFilter = filter;
-    console.log(filter);
   }
 })();
