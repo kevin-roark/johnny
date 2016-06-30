@@ -1,11 +1,18 @@
 (function () {
   var audio = document.getElementById('track');
-  console.log(audio);
   audio.onended = function() {
     setTimeout(function() {
       window.reload();
     }, 2000);
   };
+
+  setTimeout(function() {
+    var title = document.querySelector('.title');
+    title.style.opacity = 0;
+    setTimeout(function() {
+      title.parentNode.removeChild(title);
+    }, 1000);
+  }, 5000);
 
   var canvas = document.createElement('canvas');
   document.body.appendChild(canvas);
