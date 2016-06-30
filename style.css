@@ -4,6 +4,33 @@ html, body {
   overflow: hidden;
 }
 
+.title {
+  position: fixed;
+  bottom: 20px; right: 20px;
+  font-size: 32px; letter-spacing: 2px;
+  font-family: "Times New Roman", "Georgia", serif;
+  -webkit-transition: opacity ease 0.8s;
+  transition: opacity ease 0.8s;
+}
+
+.credits {
+  position: fixed;
+  top: 4px; right: 4px;
+  z-index: 1;
+  text-align: right;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+  font-size: 10px;
+  line-height: 1.4;
+}
+  .credits a {
+    display: block;
+    color: #0000ff;
+    text-decoration: none;
+  }
+    .credits a:hover, .credits a:focus {
+      text-decoration: underline;
+    }
+
 .rain-gif {
   height: 100px;
   position: absolute;
@@ -17,10 +44,15 @@ html, body {
   opacity: 0.7;
   box-shadow: 3px 3px 10px 5px rgba(0, 0, 0, 0.4);
   z-index: 1;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .fatherhood-image {
   position: absolute;
+  -webkit-transition: opacity ease 0.4s;
   transition: opacity ease 0.4s;
   opacity: 0;
 }
