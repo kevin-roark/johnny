@@ -1,4 +1,12 @@
 (function () {
+  var audio = document.getElementById('track');
+  console.log(audio);
+  audio.onended = function() {
+    setTimeout(function() {
+      window.reload();
+    }, 2000);
+  };
+
   var canvas = document.createElement('canvas');
   document.body.appendChild(canvas);
 
@@ -13,11 +21,11 @@
   };
   johnnyDadImg.src = 'media/johnny_dad.jpg';
 
-  setTimeout(randomInvert, 25666);
-  setTimeout(phrases, 4666);
-  setTimeout(rainGifs, 15666);
-  setTimeout(setupCenteredVideo, 9666);
-  setTimeout(setupFatherhoodBorder, 12666);
+  setTimeout(phrases, 9666);
+  setTimeout(setupCenteredVideo, 20666);
+  setTimeout(setupFatherhoodBorder, 28666);
+  setTimeout(rainGifs, 35666);
+  setTimeout(randomInvert, 66666);
 
   function drawJohnnyDads () {
     var size = [160, 286];
@@ -178,6 +186,7 @@
       'media/johnny_4.gif'
     ];
     var gifs = [];
+    var maxDelay = 1450;
 
     addgif();
     animate();
@@ -193,7 +202,9 @@
 
       document.body.appendChild(gif);
       gifs.push(gif);
-      setTimeout(addgif, Math.random() * 1450 + 50);
+
+      maxDelay = Math.max(maxDelay * 0.99, 400);
+      setTimeout(addgif, Math.random() * maxDelay + 50);
     }
 
     function animate () {
@@ -232,6 +243,7 @@
     var video = document.createElement('video');
     video.className = 'centered-video';
     video.src = arr[0];
+    video.volume = 0.5;
     video.play();
     document.body.appendChild(video);
 
@@ -276,6 +288,8 @@
         addBorderImage(xVals[x], y, (y / window.innerHeight) * 8666);
       }
     }
+
+    setTimeout(setupFatherhoodBorder, 12666 + Math.random() * 12666);
 
     function addBorderImage (x, y, delay) {
       setTimeout(function() {
